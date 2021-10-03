@@ -1,4 +1,4 @@
-
+/*
 if(document.readyState !== "loading"){
     
     console.log("Document is ready");
@@ -10,9 +10,7 @@ if(document.readyState !== "loading"){
         initializeCode();
     })
 }
-
-initializeCode();
-
+*/
 
 function initializeCode() {
     
@@ -40,8 +38,9 @@ async function fetchRecipe(rname, ingredients, instructions){
     const response = await fetch(`http://localhost:1234/recipe/pizza`);
     const data = await response.json();
     console.log(data);
-    rname.innerHTML = data.recipe.name;
-    ingredients.innerHTML = data.recipe.ingredients;
-    instructions.innerHTML = data.recipe.instructions;
+    rname.innerHTML = data.name;
+    ingredients.innerHTML = data.ingredients;
+    instructions.innerHTML = data.instructions;
     
 }
+initializeCode();

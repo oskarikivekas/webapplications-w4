@@ -9,7 +9,7 @@ router.get('/:food', function(req, res) {
       ingredients: ["foo"]
       
     }
-    res.json({recipe});
+    res.json(recipe);
 });
 
 
