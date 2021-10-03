@@ -64,7 +64,23 @@ document.getElementById('submit').addEventListener('click', () => {
     const name = document.getElementById('name-text').value;
     var jobject = {name: name, ingredients: ingredients, instructions: instructions};
     postrecipe(jobject);
+    postImg();
 });
+
+async function postImg() {
+    const imageform = new FormData();
+    const fileInput = document.getElementById('image-input');
+    imageform.append("images", fileInput.files);
+        
+    
+    const settings = {
+        method: "POST",
+        body: imageform
+    }
+    const response = await fetch('http://localhost:1234/images', settings);
+    
+}
+
 
 async function postrecipe(jobject) {
     

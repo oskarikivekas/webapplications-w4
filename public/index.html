@@ -4,26 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
     
 </head>
 <body>
-    <div class="container">
-        <div class="view-container">
-            <h1>helloworld</h1> 
+    <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">Recipes</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">  
+          </ul>
         </div>
+      </nav>
 
-        <div class="add-container">
-             <input type="text" id="name-text">
+    <div class="container">
+        <div class="view-container" class="col"></div>
+        <div class="add-container" class="col">
+            
+            <input type="text" id="name-text" placeholder="Name">
+
             <h4>Ingredients</h4>
             <textarea id="ingredients-text"></textarea>
-            <button id="add-ingredient" type="button">Add ingredient</button>
+            <button id="add-ingredient" class="btn" type="button">Add ingredient</button>
+
             <h4>instructions</h4>
             <textarea id="instructions-text"></textarea>
-            <button id="add-instruction" type="button">Add instruction</button>
-            <button id="submit" type="submit">Submit</button>
+            <button id="add-instruction" class="btn" type="button">Add instruction</button>
+
+            <input id="image-input" type="file" accept="image/png, image/jpeg image/jpg" multiple>
+            
+            <button id="submit" class="btn" type="submit">Submit</button>
         </div>
     </div>
 </body>
 <script src="js/index.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
 </html>
