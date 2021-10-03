@@ -1,16 +1,17 @@
-/*
+
+
 if(document.readyState !== "loading"){
     
     console.log("Document is ready");
     initializeCode();
 } else {
     
-    document.addEventListener("DOMrnameLoaded", function(){
+    document.addEventListener("DOMContentLoaded", function(){
         console.log("Document ready after waiting!");
         initializeCode();
     })
 }
-*/
+
 
 function initializeCode() {
     
@@ -25,7 +26,7 @@ function initializeCode() {
 
     fetchRecipe(rname, ingredients, instructions);
 
-    const container = document.getElementsByClassName('container')[0];
+    const container = document.getElementsByClassName('view-container')[0];
     container.appendChild(rname);
     container.appendChild(ingredients);
     container.appendChild(instructions);
@@ -43,4 +44,41 @@ async function fetchRecipe(rname, ingredients, instructions){
     instructions.innerHTML = data.instructions;
     
 }
-initializeCode();
+
+let instructions = []
+let ingredients = []
+
+document.getElementById('add-ingredient').addEventListener('click', () => {
+    const text = document.getElementById('ingredients-text').value;
+    ingredients.push(text);
+    console.log(ingredients);
+}) 
+document.getElementById('add-instruction').addEventListener('click', () => {
+    const text = document.getElementById('instructions-text').value;
+    instructions.push(text);
+    console.log(instructions);
+}) 
+
+document.getElementById('submit').addEventListener('click', () => {
+    //json {name: food, ing: array, ins: array}
+    const name = document.getElementById('name-text').value;
+    var jobject = {name: name, ingredients: ingredients, instructions: instructions};
+    postrecipe(jobject);
+});
+
+async function postrecipe(jobject) {
+    
+    var json = JSON.stringify(jobject)
+    
+    const settings = {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: json
+    };
+    const response = await fetch('http://localhost:1234/recipe', settings);
+    const data = await response.json();
+    console.log(data);
+    
+}
