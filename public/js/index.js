@@ -26,7 +26,7 @@ function initializeCode() {
 
     fetchRecipe(rname, ingredients, instructions);
 
-    const container = document.getElementsByClassName('view-container')[0];
+    const container = document.getElementById('view-container');
     container.appendChild(rname);
     container.appendChild(ingredients);
     container.appendChild(instructions);
@@ -67,10 +67,16 @@ document.getElementById('submit').addEventListener('click', () => {
     postImg();
 });
 
-async function postImg() {
+/*async function postImg() {
     const imageform = new FormData();
     const fileInput = document.getElementById('image-input');
-    imageform.append("images", fileInput.files);
+    const files = fileInput.files;
+    for (let i=0; i<files.length; i++){
+        imageform.append("images", files[0]);
+        console.log(imageform);
+    }
+
+ 
         
     
     const settings = {
@@ -78,9 +84,24 @@ async function postImg() {
         body: imageform
     }
     const response = await fetch('http://localhost:1234/images', settings);
-    
-}
 
+}
+ */  
+
+function postImg(){
+    const fileInput = document.getElementById('image-input');
+    const files = fileInput.files;
+    const fd = new FormData();
+    Array.from(files).forEach(file => {
+        fd.append('images', file);
+    });
+    const xhr = new XMLHttpRequest();
+    xhr.onload = () => {
+        console.log(xhr.response);
+    }
+    xhr.open('POST', 'http://localhost:1234/images');
+    xhr.send(fd);
+}
 
 async function postrecipe(jobject) {
     
