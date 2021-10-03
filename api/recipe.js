@@ -18,8 +18,8 @@ router.get('/:food', function(req, res) {
 
 router.post('/', (req, res) => {
   recipes.push(req.body);
-  console.log(recipes);
-  res.json(req.body);
+  
+  res.send(req.body);
 });
 
 module.exports = router;
