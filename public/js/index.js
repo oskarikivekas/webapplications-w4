@@ -77,7 +77,7 @@ async function postrecipe(jobject) {
         },
         body: json
     };
-    const response = await fetch('http://localhost:1234/recipe', settings);
+    const response = await fetch('http://localhost:1234/recipe/', settings);
     const data = await response.json();
     console.log(data);
     
