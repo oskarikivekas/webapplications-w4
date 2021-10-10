@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const recipeSchema = new mongoose.Schema({
+const Recipe = new mongoose.Schema({
     name: String,
     ingredients: [String],
     instructions: [String]
 });
 
 
-module.exports = mongoose.model('test_recipes', recipeSchema);
+module.exports = mongoose.model('recipes', Recipe);
