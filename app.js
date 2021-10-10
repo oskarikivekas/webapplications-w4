@@ -7,7 +7,7 @@ require('dotenv').config()
 
 const mongoose = require('mongoose');
 
-const db_address = process.env.DATABASE_URL;
+const db_address = process.env.DATABASE_URL1;
 console.log("db adress=" + db_address);
 mongoose.connect(db_address, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
