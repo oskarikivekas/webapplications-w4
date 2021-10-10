@@ -1,20 +1,27 @@
 
-
 if(document.readyState !== "loading"){
     
     console.log("Document is ready");
-    initializeCode();
+    loadPage("Pizza");
 } else {
     
     document.addEventListener("DOMContentLoaded", function(){
         console.log("Document ready after waiting!");
-        initializeCode();
+        loadPage("Pizza");
     })
 }
 
+//kirjota funktio jossa noi paskat päivitetää uusii arvoihi
 
-function initializeCode() {
-    
+function loadRecipe(search){
+    const rname = document.getElementsByClassName('recipe-name')[0]
+    const ingredients = document.getElementsByClassName('recipe-ingredients')[0]
+    const instructions = document.getElementsByClassName('recipe-instructions')[0]
+    fetchRecipe(search, rname, ingredients, instructions);
+
+}
+
+function loadPage(search) {
     
     const rname = document.createElement('h1');
     const ingredients = document.createElement('p');
@@ -23,22 +30,18 @@ function initializeCode() {
     ingredients.className = "recipe-ingredients";
     instructions.className = "recipe-instructions";
 
-
-    fetchRecipe(rname, ingredients, instructions);
+    fetchRecipe(search, rname, ingredients, instructions);
 
     const container = document.getElementById('view-container');
     container.appendChild(rname);
     container.appendChild(ingredients);
     container.appendChild(instructions);
-
-
 }
 
-async function fetchRecipe(rname, ingredients, instructions){
+async function fetchRecipe(search, rname, ingredients, instructions){
     console.log("hello")
-    const response = await fetch(`http://localhost:1234/recipe/pizza`);
+    const response = await fetch(`http://localhost:1234/recipe/${search}`);
     const data = await response.json();
-    console.log(data);
     rname.innerHTML = data.name;
     ingredients.innerHTML = data.ingredients;
     instructions.innerHTML = data.instructions;
@@ -60,33 +63,23 @@ document.getElementById('add-instruction').addEventListener('click', () => {
 }) 
 
 document.getElementById('submit').addEventListener('click', () => {
-    //json {name: food, ing: array, ins: array}
+    //clear inputs
+    document.getElementById('ingredients-text').value = "";
+    document.getElementById('instructions-text').value = "";
+
     const name = document.getElementById('name-text').value;
     var jobject = {name: name, ingredients: ingredients, instructions: instructions};
     postrecipe(jobject);
     postImg();
 });
 
-/*async function postImg() {
-    const imageform = new FormData();
-    const fileInput = document.getElementById('image-input');
-    const files = fileInput.files;
-    for (let i=0; i<files.length; i++){
-        imageform.append("images", files[0]);
-        console.log(imageform);
+document.getElementById('search').addEventListener('keyup', (e) => {
+    let input = document.getElementById('search').value;
+    console.log(input);
+    if (e.key === 'Enter') {
+        loadRecipe(input);
     }
-
- 
-        
-    
-    const settings = {
-        method: "POST",
-        body: imageform
-    }
-    const response = await fetch('http://localhost:1234/images', settings);
-
-}
- */  
+})
 
 function postImg(){
     const fileInput = document.getElementById('image-input');
@@ -116,6 +109,11 @@ async function postrecipe(jobject) {
     };
     const response = await fetch('http://localhost:1234/recipe/', settings);
     const data = await response.json();
-    console.log(data);
+    console.log(response.status);
+    
+    if(response.status === 403){
+        alert(data.msg);
+    }
     
 }
+

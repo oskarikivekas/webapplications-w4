@@ -1,0 +1,13 @@
+GET http://localhost:1234/recipe/Pizza
+
+###
+
+
+POST http://localhost:1234/recipe/
+Content-Type: application/json
+
+{
+    "name": "Pizza",
+    "ingredients": ["a", "b", "c"],
+    "instructions": ["d", "e", "f"] 
+}
